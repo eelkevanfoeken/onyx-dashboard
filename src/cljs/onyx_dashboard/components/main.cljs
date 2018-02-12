@@ -6,7 +6,7 @@
             [om-bootstrap.random :as r]
             [onyx-dashboard.components.deployment :refer [select-deployment deployment-indicator 
                                                           deployment-time-travel deployment-peers deployment-log-dump]]
-            [onyx-dashboard.components.jobs :refer [job-selector job-info job-management]]
+            [onyx-dashboard.components.jobs :refer [job-selector job-info]]
             [onyx-dashboard.components.log :refer [log-entries-pager]]
             [onyx-dashboard.controllers.api :refer [api-controller]]
             [onyx-dashboard.state-query :as sq]
@@ -54,11 +54,6 @@
                                                          :last-entry (sq/deployment->latest-entry deployment)})
                                               (om/build job-selector deployment {})
                                               (om/build deployment-peers deployment {})
-                                               (if job
-                                                 (om/build job-management
-                                                           {:replica (sq/deployment->latest-replica deployment)
-                                                            :job-info job}
-                                                           {:react-key (str "management-" (:id job))}))
                                               (om/build deployment-time-travel deployment)
                                               (om/build deployment-log-dump deployment))))
                                    (g/col {:xs 8 :md 8}
